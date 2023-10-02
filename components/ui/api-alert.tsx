@@ -2,8 +2,8 @@
 
 import { Copy, Server } from "lucide-react";
 import { Badge, BadgeProps } from "@/components/ui/badge";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { Button } from "../ui/button";
+import { Alert, AlertDescription, AlertTitle } from "./alert";
+import { Button } from "./button";
 import toast from "react-hot-toast";
 
 interface ApiAlertProps {

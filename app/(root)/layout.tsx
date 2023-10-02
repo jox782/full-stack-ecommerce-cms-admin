@@ -20,7 +20,6 @@ export default async function SetupLayout({
   });
 
   if (store) {
-    console.log("userId Search", store);
     redirect(`/${store.id}`);
   }
   return <>{children}</>;

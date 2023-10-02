@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { ApiAlert } from "@/components/modals/api-alert";
+import { ApiAlert } from "@/components/ui/api-alert";
 import { useOrigin } from "@/hooks/use-origin";
 interface SettingsFormProps {
   initialData: Store;
@@ -37,6 +37,7 @@ type SettingsFormValues = z.infer<typeof formSchema>;
 const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
+  //to prevent hydration errors
   const origin = useOrigin();
 
   const [open, setOpen] = useState(false);
@@ -55,7 +56,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       router.refresh();
       toast.success("Store Updated Successfully.");
     } catch (error) {
-      toast.success("Something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }

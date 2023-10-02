@@ -1,7 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 // npx prisma generate will add Store in our NodeModule to use it in our code
-// npx prism push to push the table to our planet scale
+// npx prism db push to push the table to our planet scale
 
 generator client {
   provider = "prisma-client-js"
@@ -13,10 +13,52 @@ datasource db {
   relationMode = "prisma"
 }
 
+
 model Store {
   id String @id @default(uuid())
   name String
   userId String
+  billboards Billboard[] @relation("StoreToBillboard")
+  categories Category[] @relation("StoreToCategory")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+// |   id (Primary Key)   |    name    |   userId   |    createdAt    |    updatedAt    |
+// |----------------------|------------|------------|-----------------|-----------------|
+// |   Unique Store ID 1  |   Store 1  |   User 1   |   Timestamp 1   |   Timestamp 2   |
+// |   Unique Store ID 2  |   Store 2  |   User 2   |   Timestamp 3   |   Timestamp 4   |
+// |   ...                |   ...      |   ...      |   ...           |   ...           |
+
+
+model Billboard {
+  id          String @id @default(uuid())
+  storeId     String
+  store       Store @relation("StoreToBillboard", fields: [storeId], references: [id])
+  categories Category[]
+  label       String
+  imageUrl    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([storeId])
+}
+// |   id (Primary Key)   |   storeId (Foreign Key)   |   label    |    createdAt    |    updatedAt    |
+// |----------------------|---------------------------|------------|-----------------|-----------------|
+// |   Unique Billboard 1 |   Unique Store ID 1       |   Label 1  |   Timestamp 1   |   Timestamp 2   |
+// |   Unique Billboard 2 |   Unique Store ID 1       |   Label 2  |   Timestamp 3   |   Timestamp 4   |
+// |   Unique Billboard 3 |   Unique Store ID 2       |   Label 3  |   Timestamp 5   |   Timestamp 6   |
+// |   ...                |   ...                     |   ...      |   ...           |   ...           |
+
+model Category {
+  id          String      @id @default(uuid())
+  storeId     String      // Foreign Key to Store
+  store       Store       @relation("StoreToCategory", fields: [storeId], references: [id])
+  billboardId String      // Foreign Key to Billboard
+  billboard   Billboard   @relation(fields: [billboardId], references: [id])
+  name        String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([storeId])
+  @@index([billboardId])
 }
