@@ -2,7 +2,7 @@
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
-import Heading from "@/components/ui/heading";
+import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
@@ -13,7 +13,7 @@ interface CategoryClientProps {
   data: CategoryColumn[];
 }
 
-export const BillboardClient: React.FC<CategoryClientProps> = ({ data }) => {
+export const CategoriesClient: React.FC<CategoryClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
   return (

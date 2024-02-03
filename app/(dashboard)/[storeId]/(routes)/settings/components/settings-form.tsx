@@ -9,7 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-import Heading from "@/components/ui/heading";
+import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -82,7 +82,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
         loading={loading}
       />
       <div className="flex items-center justify-between">
-        <Heading title="Setting" description="Mange store preferences" />
+        <Heading title="Settings" description="Mange store preferences" />
         <Button
           disabled={loading}
           variant="destructive"
@@ -128,7 +128,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       <ApiAlert
         variant="public"
         title="NEXT_PUBLIC_API_URL"
-        description={`${origin}/api/${params.storeId}`}
+        description={`${origin}/${params.storeId}`}
       />
     </>
   );
